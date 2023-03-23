@@ -7,7 +7,7 @@ import {
   useSigner,
   useSwitchNetwork,
 } from "wagmi";
-import abi from "../abi/ABI.json";
+import abi from "../abi/ABI2.json";
 import { ethers } from "ethers";
 import { BiLoaderAlt } from "react-icons/bi";
 
@@ -43,11 +43,11 @@ const Attest = () => {
       const bytes32hex = ethers.utils.formatBytes32String(key);
       console.log(bytes32hex);
       const val = ethers.utils.toUtf8Bytes(value);
-      // const res = await contract.attest([
-      //   { about: about, key: bytes32hex, val: ethers.utils.hexlify(val) },
-      // ]);
-      // res.wait(1);
-      // console.log(res);
+      const res = await contract.attest([
+        { about: about, key: bytes32hex, val: ethers.utils.hexlify(val) },
+      ]);
+      res.wait(1);
+      console.log(res);
     } catch (e) {
       console.log(e);
       setError("Rejected");

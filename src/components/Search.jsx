@@ -10,11 +10,12 @@ import {
 import abi from "../abi/ABI.json";
 import { ethers } from "ethers";
 import { BiLoaderAlt } from "react-icons/bi";
+import Router from "next/router";
 
-const methodID = "0x702b9dee";
+// const methodID = "0x702b9dee";
 
 const Search = () => {
-  // const { alchemy } = useAlchemy();
+  const { alchemy } = useAlchemy();
   const { data: signer, isError, isLoading } = useSigner();
   const [load, setLoad] = useState(false);
   const contract = useContract({
@@ -30,6 +31,37 @@ const Search = () => {
   const [value, setValue] = useState("");
   const [isValidCreator, setIsValidCreator] = useState(false);
   const [error, setError] = useState("");
+  async function sendProps(e) {
+    e.preventDefault();
+    setLoad(true);
+    try {
+      let bytes32hex;
+      if (key) bytes32hex = ethers.utils.formatBytes32String(key);
+      let val;
+      if (value) {
+        const bytes = ethers.utils.toUtf8Bytes(value);
+        val = ethers.utils.hexlify(bytes);
+      }
+      Router.push({
+        pathname: "/querying",
+        query: {
+          key: bytes32hex ?? null,
+          about: about ?? null,
+          value: val ?? null,
+          creator: creator ?? null,
+        },
+      });
+      // const res = await contract.attestations([
+      //   { about: about, creator: creator, key: bytes32hex },
+      // ]);
+      // res.wait(1);
+      // console.log(res);
+    } catch (e) {
+      console.log(e);
+      setError("Rejected");
+    }
+    setLoad(false);
+  }
   const handleSearch = async (e) => {
     setLoad(true);
     e.preventDefault();
@@ -39,20 +71,6 @@ const Search = () => {
       setLoad(false);
       return;
     }
-    try {
-      console.log("About: ", about);
-      const bytes32hex = ethers.utils.formatBytes32String(key);
-      const val = ethers.utils.toUtf8Bytes(creator);
-      const res = await contract.attestations([
-        { about: about, creator: creator, key: bytes32hex },
-      ]);
-      res.wait(1);
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-      setError("Rejected");
-    }
-    setLoad(false);
   };
   return (
     <div className="flex items-center justify-center ">
@@ -103,8 +121,22 @@ const Search = () => {
               }}
             />
           </label>
+          <label className="p-2 m-2 w-full flex justify-center items-center">
+            <span className="m-2 text-xl w-[60px] ">Value</span>
+            <input
+              className="p-2 focus:outline-gray-200"
+              placeholder="Max 32 Characters"
+              value={value}
+              onChange={(e) => {
+                const v = e.target.value;
+                setValue(v);                
+                // setIsValidValue(valid);
+                setError("");
+              }}
+            />
+          </label>
           <button
-            onClick={handleSearch}
+            onClick={sendProps}
             className="text-xl bg-cyan-600 rounded p-2 text-white hover:opacity-80"
             type="submit"
           >

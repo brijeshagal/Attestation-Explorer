@@ -23,7 +23,7 @@ const Navbar = () => {
       </Link>
       <div className="flex space-x-5">
         <div className="flex justify-center items-center text-white">
-          {/* <Profile /> */}
+          <Profile />
         </div>
         <div className="group">
           <div className="flex cursor-pointer text-white w-[100px]">

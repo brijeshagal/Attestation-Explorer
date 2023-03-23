@@ -2,7 +2,7 @@ import useAlchemy from "@/hooks/useAlchemy";
 import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useProvider } from "wagmi";
-import ABI from "../abi/ABI2";
+import ABI from "../abi/ABI2.json";
 import { ethers } from "ethers";
 import { Polybase } from "@polybase/client";
 import { ethPersonalSign } from "@polybase/eth";
@@ -73,7 +73,7 @@ const Transaction = () => {
     // };
     async function fetch() {
       const transactions = await alchemy.core.getAssetTransfers({
-        fromBlock: "0x0",
+        fromBlock: "0x34A941",
         toAddress: "0xEE36eaaD94d1Cc1d0eccaDb55C38bFfB6Be06C77",
         maxCount: "0xa",
         excludeZeroValue: false,
@@ -95,11 +95,23 @@ const Transaction = () => {
           data: res1.logs[0].data,
           topics: res1.logs[0].topics,
         });
+        //Error: 0x5eb5ea10
+        // 0x50cd32e7dea3b20a11837230cf499a7a383df7162ae9e69e5a31eea25a65ae21
+        //Okay: 0x5eb5ea10
+        // 0x659b9ec1009f268952cdab9db9944545e69b2bf656f4ff296be8bb9aa20047dd
         // console.log(res.args.about);
         // receipts.push();
         const bytes = ethers.utils.arrayify(res.args.val);
         const val = ethers.utils.toUtf8String(bytes);
-        const key = ethers.utils.parseBytes32String(res.args.key);
+        console.log(res.args.key);
+        let key;
+        try {
+          key = ethers.utils.parseBytes32String(res.args.key);
+        } catch (e) {
+          console.log(e);
+          key = res.args.key;
+        }
+        // const key = res.args.key;
         const result = {
           hash: hash,
           from: res1.from,
@@ -165,7 +177,10 @@ const Transaction = () => {
               </div>
               <div className="ml-auto w-fit">
                 View transaction{" "}
-                <a href={`https://goerli-optimism.etherscan.io/tx/${txn.hash}`} className='underline underline-offset-2 text-blue-600'>
+                <a
+                  href={`https://goerli-optimism.etherscan.io/tx/${txn.hash}`}
+                  className="underline underline-offset-2 text-blue-600"
+                >
                   here
                 </a>
               </div>
