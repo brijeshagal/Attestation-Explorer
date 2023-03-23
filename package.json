@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@graphprotocol/client-cli": "^2.2.20",
     "@polybase/client": "^0.3.37",
     "abi-decoder": "^2.4.0",
     "alchemy-sdk": "^2.6.1",

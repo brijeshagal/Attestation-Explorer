@@ -7,6 +7,7 @@ import { ethers } from "ethers";
 import { Polybase } from "@polybase/client";
 import { ethPersonalSign } from "@polybase/eth";
 import { secp256k1 } from "@polybase/util";
+import Link from "next/link";
 
 const db = new Polybase({
   defaultNamespace:
@@ -18,14 +19,14 @@ const creator = db.collection("creator");
 
 async function createRecord() {
   // .create(args) args array is defined by the constructor fn
-  try{
-  const recordData = await key.create([
-    ["address1", "address2"],
-    ["addresscreator", "addresscreator2"],
-    "trialkey",
-  ]);
-  console.log(recordData);}
-  catch(e){
+  try {
+    const recordData = await key.create([
+      ["address1", "address2"],
+      ["addresscreator", "addresscreator2"],
+      "trialkey",
+    ]);
+    console.log(recordData);
+  } catch (e) {
     console.log(e);
   }
 }
@@ -79,21 +80,40 @@ const Transaction = () => {
         order: "desc",
         category: ["external", "erc20", "erc721", "erc1155", "specialnft"],
       });
-      console.log(transactions);
-      setTxns(transactions.transfers);
-      const res1 = await alchemy.core.getTransactionReceipt(
-        "0x91a657252087415f269e0e357bf4b43c465510d7fe483f6c0d0eb2fcb6e9a4d5"
-      );
-      console.log(res1);
+      // console.log(transactions);
+      const hashes = [];
+      transactions.transfers.forEach((tx) => {
+        hashes.push(tx.hash);
+      });
+      // console.log(hashes);
+      // const receipts = [];
+      let iface = new ethers.utils.Interface(ABI);
+      for (let hash of hashes) {
+        const res1 = await alchemy.core.getTransactionReceipt(hash);
+        // console.log(res1);
+        const res = iface.parseLog({
+          data: res1.logs[0].data,
+          topics: res1.logs[0].topics,
+        });
+        // console.log(res.args.about);
+        // receipts.push();
+        const bytes = ethers.utils.arrayify(res.args.val);
+        const val = ethers.utils.toUtf8String(bytes);
+        const key = ethers.utils.parseBytes32String(res.args.key);
+        const result = {
+          hash: hash,
+          from: res1.from,
+          creator: res.args.creator,
+          about: res.args.about,
+          key: key,
+          val: val,
+        };
+        // console.log(result);
+        setTxns((prev) => [...prev, result]);
+      }
       // const ABI3 = await getABI();
 
       // Txn Data
-      let iface = new ethers.utils.Interface(ABI);
-      const res = iface.parseLog({
-        data: res1.logs[0].data,
-        topics: res1.logs[0].topics,
-      });
-      console.log(res);
 
       // abiDecoder.addABI(ABI);
 
@@ -101,29 +121,56 @@ const Transaction = () => {
       //  res1.logs[0].data
       // );
       // console.log("decodedData: ", JSON.stringify(decodedData));
+      // console.log(txns);
     }
     fetch();
   }, [alchemy]);
   return (
     <div>
-      <form className="flex  overflow-hidden rounded-lg bg-white m-3 px-5 py-1 justify-center items-center">
+      {/* <form className="flex  overflow-hidden rounded-lg bg-white m-3 px-5 py-1 justify-center items-center">
         <div className="w-[100px]">All Filters</div>
         <input
           className="p-2 flex-1 focus:outline-none"
           placeholder="Search an Attestation"
         />
-        {/* <div className="bg-blue-400 h-full "> */}
+        <div className="bg-blue-400 h-full ">
         <button type="submit" onClick={handleSearch} className="h-full p-2">
           <AiOutlineSearch className="m-auto text-lg" />
         </button>
-        {/* </div> */}
-      </form>
+        </div>
+      </form> */}
       <div className="p-2 flex flex-col space-y-4">
-        <div className="mx-auto text-bold tracking-widest w-fit">
-          Latest Attestations (By Addresses)
+        <div className="mx-auto font-bold tracking-widest w-fit">
+          Latest Attestations
         </div>
         {txns?.map((txn, idx) => {
-          return <div className="p-2 bg-white rounded hover:scale-[1.05] duration-75 transition-all" key={idx}>{txn.from}</div>;
+          return (
+            <div
+              className="p-3 bg-white rounded hover:scale-[1.05] duration-75 transition-all"
+              key={idx}
+            >
+              {/* {txn.from} */}
+              <div className="py-2 flex">
+                <div className="font-semibold w-[70px]">About</div> {txn.about}
+              </div>
+              <div className="py-2 flex">
+                <div className="font-semibold w-[70px]">Creator</div>{" "}
+                {txn.creator}
+              </div>
+              <div className="py-2 flex">
+                <div className="font-semibold w-[70px]">Key</div> {txn.key}
+              </div>
+              <div className="py-2 flex">
+                <div className="font-semibold w-[70px]">Value</div> {txn.val}
+              </div>
+              <div className="ml-auto w-fit">
+                View transaction{" "}
+                <a href={`https://goerli-optimism.etherscan.io/tx/${txn.hash}`} className='underline underline-offset-2 text-blue-600'>
+                  here
+                </a>
+              </div>
+            </div>
+          );
         })}
       </div>
     </div>

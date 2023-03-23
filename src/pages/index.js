@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import Transaction from "@/components/Transaction";
 import Attest from "@/components/Attest";
+import Search from "@/components/Search";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function Home() {
       <main >
         <div className="flex flex-wrap justify-center items-start p-2 space-x-5">
           <Attest />
+          <Search />
           <Transaction />
         </div>
       </main>

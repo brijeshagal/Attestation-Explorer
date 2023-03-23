@@ -1,0 +1,5 @@
+sources:
+  - name: Contract
+    handler:
+      graphql:
+        endpoint: https://api.studio.thegraph.com/query/44262/index/0.0.1

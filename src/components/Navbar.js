@@ -23,14 +23,14 @@ const Navbar = () => {
       </Link>
       <div className="flex space-x-5">
         <div className="flex justify-center items-center text-white">
-          <Profile />
+          {/* <Profile /> */}
         </div>
         <div className="group">
           <div className="flex cursor-pointer text-white w-[100px]">
             {chains[chain]}
             <AiOutlineDown className="my-auto mx-auto text-lg" />
           </div>
-          <div className="hidden group-hover:block absolute bg-white cursor-pointer w-[100px]">
+          <div className="hidden group-hover:block absolute bg-white cursor-pointer w-[200px]">
             {chains.map((net, idx) => {
               if (net !== chains[chain])
                 return (

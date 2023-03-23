@@ -13,7 +13,7 @@ import { BiLoaderAlt } from "react-icons/bi";
 
 const methodID = "0x702b9dee";
 
-const Attest = () => {
+const Search = () => {
   // const { alchemy } = useAlchemy();
   const { data: signer, isError, isLoading } = useSigner();
   const [load, setLoad] = useState(false);
@@ -26,10 +26,11 @@ const Attest = () => {
   const [isValidAbout, setIsValidAbout] = useState(false);
   const [key, setKey] = useState("");
   const [isValidKey, setIsValidKey] = useState(false);
+  const [creator, setCreator] = useState("");
   const [value, setValue] = useState("");
-  const [isValidValue, setIsValidValue] = useState(false);
+  const [isValidCreator, setIsValidCreator] = useState(false);
   const [error, setError] = useState("");
-  const handleSubmit = async (e) => {
+  const handleSearch = async (e) => {
     setLoad(true);
     e.preventDefault();
     if (!isValidAbout || !isValidKey) {
@@ -41,13 +42,12 @@ const Attest = () => {
     try {
       console.log("About: ", about);
       const bytes32hex = ethers.utils.formatBytes32String(key);
-      console.log(bytes32hex);
-      const val = ethers.utils.toUtf8Bytes(value);
-      // const res = await contract.attest([
-      //   { about: about, key: bytes32hex, val: ethers.utils.hexlify(val) },
-      // ]);
-      // res.wait(1);
-      // console.log(res);
+      const val = ethers.utils.toUtf8Bytes(creator);
+      const res = await contract.attestations([
+        { about: about, creator: creator, key: bytes32hex },
+      ]);
+      res.wait(1);
+      console.log(res);
     } catch (e) {
       console.log(e);
       setError("Rejected");
@@ -57,8 +57,22 @@ const Attest = () => {
   return (
     <div className="flex items-center justify-center ">
       <div className="flex justify-center flex-col items-center bg-white rounded-lg p-4 w-fit">
-        <div className="text-2xl mt-5  ">Attest Now</div>
+        <div className="text-2xl mt-5">Verify Attestation</div>
         <form className="flex flex-col w-full ">
+          <label className="p-2 m-2 w-full flex justify-center items-center">
+            <span className="m-2 text-xl w-[75px] overflow-hidden text-center">
+              Creator
+            </span>
+            <input
+              className="p-2 focus:outline-gray-200"
+              placeholder="Address"
+              value={creator}
+              onChange={(e) => {
+                setCreator(e.target.value);
+                setError("");
+              }}
+            />
+          </label>
           <label className="p-2 m-2 w-full flex justify-center items-center">
             <span className="m-2 text-xl w-[60px] overflow-hidden">About</span>
             <input
@@ -89,26 +103,12 @@ const Attest = () => {
               }}
             />
           </label>
-          <label className="p-2 m-2 w-full flex justify-center items-center">
-            <span className="m-2 text-xl w-[60px] overflow-hidden text-center">
-              Value
-            </span>
-            <input
-              className="p-2 focus:outline-gray-200"
-              placeholder="String (Bytes)"
-              value={value}
-              onChange={(e) => {
-                setValue(e.target.value);
-                setError("");
-              }}
-            />
-          </label>
           <button
-            onClick={handleSubmit}
+            onClick={handleSearch}
             className="text-xl bg-cyan-600 rounded p-2 text-white hover:opacity-80"
             type="submit"
           >
-            {load ? <BiLoaderAlt className="animate-spin m-auto" /> : "Submit"}
+            {load ? <BiLoaderAlt className="animate-spin m-auto" /> : "Search"}
           </button>
           {error.length > 0 ? (
             <div className="p-2 text-center w-fit mx-auto text-red-600 text-sm">
@@ -123,4 +123,4 @@ const Attest = () => {
   );
 };
 
-export default Attest;
+export default Search;
