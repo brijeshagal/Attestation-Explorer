@@ -1,18 +1,29 @@
 import useChain from "@/hooks/useChain";
-import React from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { AiOutlineDown } from "react-icons/ai";
 import Link from "next/link.js";
-import useAlchemy from "@/hooks/useAlchemy.js";
 import { Alchemy, Network } from "alchemy-sdk";
+import { useDisconnect, useNetwork, useSwitchNetwork } from "wagmi";
 
 const Profile = dynamic(() => import("./Profile.jsx"), {
   ssr: false,
 });
 
 const Navbar = () => {
-  const { chains, chain, setChain } = useChain();
-  const { setSettings, setAlchemy } = useAlchemy();
+  const [open, setOpen] = useState(false);
+  const { chains, chain, setChain, setSettings, setAlchemy } = useChain();
+
+  const { disconnect } = useDisconnect();
+  const { chain: currentChain } = useNetwork();
+  const {
+    chains: networkChains,
+    error: switchError,
+    isLoading: switchLoading,
+    pendingChainId,
+    switchNetwork,
+  } = useSwitchNetwork();
+
   return (
     <nav className="flex justify-between p-3 bg-cyan-600 h-[70px] items-center">
       <Link
@@ -22,36 +33,41 @@ const Navbar = () => {
         Attestation Explorer
       </Link>
       <div className="flex space-x-5">
-        <div className="flex justify-center items-center text-white">
-          <Profile />
-        </div>
-        <div className="group">
-          <div className="flex cursor-pointer text-white w-[100px]">
-            {chains[chain]}
-            <AiOutlineDown className="my-auto mx-auto text-lg" />
+        <div className=" relative flex space-x-3">
+          <div
+            onClick={() => setOpen(!open)}
+            className="flex items-center peer cursor-pointer text-white"
+          >
+            {chain.name}
+            <AiOutlineDown className="my-auto mx-2 text-lg" />
+            {open ? (
+              <div className="absolute bg-white rounded text-black top-[50px] left-0 cursor-pointer w-[150px]">
+                {chains.map((net, idx) => {
+                  if (net.chainId !== chain.chainId)
+                    return (
+                      <div
+                        key={idx}
+                        onClick={() => {
+                          setChain(net);
+                          // setSettings(net.setting);
+                          const alch = new Alchemy(net.setting);
+                          setAlchemy(alch);
+                          console.log(alch);
+                          setOpen(false);
+                        }}
+                        className="p-2 rounded"
+                      >
+                        {net.name}
+                      </div>
+                    );
+                })}
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
-          <div className="hidden group-hover:block absolute bg-white cursor-pointer w-[200px]">
-            {chains.map((net, idx) => {
-              if (net !== chains[chain])
-                return (
-                  <div
-                    key={idx}
-                    onClick={() => {
-                      setChain(idx);
-                      const newSetting = {
-                        apiKey: process.env.OPT,
-                        network: Network.OPT_MAINNET,
-                      };
-                      setSettings(newSetting);
-                      const alch = new Alchemy(newSetting);
-                      setAlchemy(alch);
-                    }}
-                    className="p-2"
-                  >
-                    {net}
-                  </div>
-                );
-            })}
+          <div className="flex justify-center items-center text-white">
+            <Profile />
           </div>
         </div>
       </div>

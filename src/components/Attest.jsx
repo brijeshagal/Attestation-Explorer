@@ -48,8 +48,8 @@ const Attest = () => {
   };
   return (
     <div className="flex items-center justify-center ">
-      <div className="flex justify-center flex-col items-center bg-white rounded-lg p-4 w-fit">
-        <div className="text-2xl mt-5  ">Attest Now</div>
+      <div className="flex justify-center flex-col items-center bg-white rounded-lg mt-2 p-4 w-fit">
+        <div className="text-2xl">Attest Now</div>
         <form className="flex flex-col w-full ">
           <label className="p-2 m-2 w-full flex justify-center items-center">
             <span className="m-2 text-xl w-[60px] overflow-hidden">About</span>

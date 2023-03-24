@@ -1,4 +1,3 @@
-import useAlchemy from "@/hooks/useAlchemy";
 import React, { useEffect, useState } from "react";
 import {
   useContract,
@@ -11,11 +10,12 @@ import abi from "../abi/ABI.json";
 import { ethers } from "ethers";
 import { BiLoaderAlt } from "react-icons/bi";
 import Router from "next/router";
+import useChain from "@/hooks/useChain";
 
 // const methodID = "0x702b9dee";
 
 const Search = () => {
-  const { alchemy } = useAlchemy();
+  const { alchemy } = useChain();
   const { data: signer, isError, isLoading } = useSigner();
   const [load, setLoad] = useState(false);
   const contract = useContract({
@@ -45,10 +45,10 @@ const Search = () => {
       Router.push({
         pathname: "/querying",
         query: {
-          key: bytes32hex ?? '',
-          about: about ?? '',
-          value: val ?? '',
-          creator: creator ?? '',
+          key: bytes32hex ?? "",
+          about: about ?? "",
+          value: val ?? "",
+          creator: creator ?? "",
         },
       });
       // const res = await contract.attestations([
@@ -62,21 +62,11 @@ const Search = () => {
     }
     setLoad(false);
   }
-  const handleSearch = async (e) => {
-    setLoad(true);
-    e.preventDefault();
-    if (!isValidAbout || !isValidKey) {
-      setError("Fill out all the details.");
-      console.log(isValidAbout, isValidKey);
-      setLoad(false);
-      return;
-    }
-  };
   return (
     <div className="flex items-center justify-center ">
       <div className="flex justify-center flex-col items-center bg-white rounded-lg p-4 w-fit">
-        <div className="text-2xl mt-5">Verify Attestation</div>
-        <form className="flex flex-col w-full ">
+        <div className="text-2xl">Search Attestation</div>
+        <form className="flex w-full items-center ">
           <label className="p-2 m-2 w-full flex justify-center items-center">
             <span className="m-2 text-xl w-[75px] overflow-hidden text-center">
               Creator
@@ -129,7 +119,7 @@ const Search = () => {
               value={value}
               onChange={(e) => {
                 const v = e.target.value;
-                setValue(v);                
+                setValue(v);
                 // setIsValidValue(valid);
                 setError("");
               }}
@@ -137,7 +127,7 @@ const Search = () => {
           </label>
           <button
             onClick={sendProps}
-            className="text-xl bg-cyan-600 rounded p-2 text-white hover:opacity-80"
+            className="text-xl h-fit bg-cyan-600 rounded p-2 text-white hover:opacity-80"
             type="submit"
           >
             {load ? <BiLoaderAlt className="animate-spin m-auto" /> : "Search"}

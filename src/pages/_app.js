@@ -7,7 +7,6 @@ import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { AlchemyProvider } from "@/context/AlchemyProvider";
 import { Analytics } from '@vercel/analytics/react';
 import Navbar from "@/components/Navbar";
 
@@ -24,22 +23,23 @@ const client = createClient({
     }),
     new InjectedConnector({
       chains,
+      options: {
+        name: "Injected Connector"
+      }
     }),
   ],
   provider,  
 });
 export default function App({ Component, pageProps }) {
   return (
-    <WagmiConfig client={client}>
-      <AlchemyProvider>
+    <WagmiConfig client={client}>      
         <ChainProvider>
           <div className="min-h-screen bg-gray-200">
             <Navbar />
             <Component {...pageProps} />
             <Analytics />
           </div>
-        </ChainProvider>
-      </AlchemyProvider>
+        </ChainProvider>      
     </WagmiConfig>
   );
 }
