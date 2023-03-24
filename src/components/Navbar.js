@@ -23,9 +23,12 @@ const Navbar = () => {
     pendingChainId,
     switchNetwork,
   } = useSwitchNetwork();
+  const network = useSwitchNetwork({
+    chainId: chain.chainId,
+  });
 
   return (
-    <nav className="flex justify-between p-3 bg-cyan-600 h-[70px] items-center">
+    <nav className="flex flex-wrap justify-between p-3 bg-cyan-600 items-center">
       <Link
         className="text-lg ml-5 font-bold tracking-widest text-white"
         href={"/"}
@@ -47,12 +50,11 @@ const Navbar = () => {
                     return (
                       <div
                         key={idx}
-                        onClick={() => {
+                        onClick={async () => {                          
+                          network.switchNetwork(net.chainId);
                           setChain(net);
-                          // setSettings(net.setting);
                           const alch = new Alchemy(net.setting);
                           setAlchemy(alch);
-                          console.log(alch);
                           setOpen(false);
                         }}
                         className="p-2 rounded"

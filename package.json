@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@connext/smart-contracts": "^1.2.0-alpha.0",
     "@graphprotocol/client-cli": "^2.2.20",
+    "@openzeppelin/contracts": "^4.8.2",
+    "@openzeppelin/contracts-upgradeable": "^4.8.2",
     "@polybase/client": "^0.3.37",
     "@vercel/analytics": "^0.1.11",
     "abi-decoder": "^2.4.0",

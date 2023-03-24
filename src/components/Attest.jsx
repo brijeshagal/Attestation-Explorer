@@ -47,8 +47,8 @@ const Attest = () => {
     setLoad(false);
   };
   return (
-    <div className="flex items-center justify-center ">
-      <div className="flex justify-center flex-col items-center bg-white rounded-lg mt-2 p-4 w-fit">
+    <div className="flex items-center justify-center mx-auto">
+      <div className="flex justify-center flex-col items-center mx-auto bg-white rounded-lg mt-2 p-4 w-fit">
         <div className="text-2xl">Attest Now</div>
         <form className="flex flex-col w-full ">
           <label className="p-2 m-2 w-full flex justify-center items-center">

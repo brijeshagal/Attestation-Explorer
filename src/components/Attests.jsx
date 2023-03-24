@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useContract, useSigner } from "wagmi";
 import abi from "../abi/ABI.json";
-import { ethers } from "ethers";
 import { BiLoaderAlt } from "react-icons/bi";
 import { MdContentCopy } from "react-icons/md";
 import useChain from "@/hooks/useChain";
@@ -10,13 +9,7 @@ const methodID = "0x702b9dee";
 
 const Attests = () => {
   const { alchemy, chain } = useChain();
-  const { data: signer, isError, isLoading } = useSigner();
-  const [load, setLoad] = useState(false);
-  const contract = useContract({
-    address: "0xEE36eaaD94d1Cc1d0eccaDb55C38bFfB6Be06C77",
-    abi: abi,
-    signerOrProvider: signer,
-  });
+  
   const [success, setSuccess] = useState();
   useEffect(() => {
     async function fetch() {
@@ -35,7 +28,7 @@ const Attests = () => {
   return (
     <div className="flex flex-col items-center justify-center space-y-4">
       <div className="flex justify-center flex-col items-center bg-white rounded-lg mt-2 p-4 w-fit">
-        <div className="text-2xl flex flex-col tracking-widest font-semibold items-center w-[400px] text-center justify-center text-black">
+        <div className="text-2xl flex flex-col tracking-widest font-semibold items-center md:w-[400px] max-w-[300px] text-center justify-center text-black">
           {success ? (
             <div className="font-extrabold">{success}</div>
           ) : (
@@ -59,7 +52,7 @@ const Attests = () => {
         </div>
       </div>
       <div className="flex justify-center flex-col items-center bg-white rounded-lg mt-2 p-4 w-fit">
-        <div className="text-2xl space-y-1 flex flex-col tracking-widest font-semibold items-center w-[400px] text-center justify-center text-black">
+        <div className="text-2xl space-y-1 flex flex-col tracking-widest font-semibold items-center md:w-[400px] max-w-[300px] text-center justify-center text-black">
           <div className="">What are Attestations?</div>
           <div>Why Attestations?</div>
           <div>How to use the Explorer?</div>

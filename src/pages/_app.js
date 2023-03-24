@@ -2,7 +2,7 @@ import { ChainProvider } from "@/context/ChainProvider";
 import "@/styles/globals.css";
 import { WagmiConfig, createClient, configureChains, mainnet } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
-import { optimismGoerli } from "wagmi/chains";
+import { optimism, optimismGoerli } from "wagmi/chains";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
@@ -11,11 +11,12 @@ import { Analytics } from '@vercel/analytics/react';
 import Navbar from "@/components/Navbar";
 
 const { chains, provider } = configureChains(
-  [optimismGoerli],
-  [alchemyProvider({ apiKey: process.env.OPT_GOERLI })]
+  [optimismGoerli, optimism],
+  [alchemyProvider({ apiKey: process.env.OPT_GOERLI }), alchemyProvider({apiKey: process.env.OPT})]
 );
 
 const client = createClient({
+  autoConnect:true,
   connectors: [
     new MetaMaskConnector({ chains }),
     new CoinbaseWalletConnector({

@@ -63,11 +63,11 @@ const Search = () => {
     setLoad(false);
   }
   return (
-    <div className="flex items-center justify-center ">
+    <div className="flex w-11/12 mx-auto items-center justify-center ">
       <div className="flex justify-center flex-col items-center bg-white rounded-lg p-4 w-fit">
         <div className="text-2xl">Search Attestation</div>
-        <form className="flex w-full items-center ">
-          <label className="p-2 m-2 w-full flex justify-center items-center">
+        <form className="flex flex-wrap w-full items-center ">
+          <label className="p-2 m-2 flex justify-center items-center">
             <span className="m-2 text-xl w-[75px] overflow-hidden text-center">
               Creator
             </span>
@@ -81,7 +81,7 @@ const Search = () => {
               }}
             />
           </label>
-          <label className="p-2 m-2 w-full flex justify-center items-center">
+          <label className="p-2 m-2 flex justify-center items-center">
             <span className="m-2 text-xl w-[60px] overflow-hidden">About</span>
             <input
               className="p-2 focus:outline-gray-200"
@@ -96,7 +96,7 @@ const Search = () => {
               }}
             />
           </label>
-          <label className="p-2 m-2 w-full flex justify-center items-center">
+          <label className="p-2 m-2 flex justify-center items-center">
             <span className="m-2 text-xl w-[60px] ">Key</span>
             <input
               className="p-2 focus:outline-gray-200"
@@ -111,7 +111,7 @@ const Search = () => {
               }}
             />
           </label>
-          <label className="p-2 m-2 w-full flex justify-center items-center">
+          <label className="p-2 m-2 flex justify-center items-center">
             <span className="m-2 text-xl w-[60px] ">Value</span>
             <input
               className="p-2 focus:outline-gray-200"
@@ -127,7 +127,7 @@ const Search = () => {
           </label>
           <button
             onClick={sendProps}
-            className="text-xl h-fit bg-cyan-600 rounded p-2 text-white hover:opacity-80"
+            className="text-xl mx-auto h-fit bg-cyan-600 rounded p-2 text-white hover:opacity-80"
             type="submit"
           >
             {load ? <BiLoaderAlt className="animate-spin m-auto" /> : "Search"}

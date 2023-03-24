@@ -68,7 +68,6 @@ const Transaction = () => {
         order: "desc",
         category: ["external", "erc20", "erc721", "erc1155", "specialnft"],
       });
-      console.log("Transaction wala: alch", alchemy);
       // console.log(transactions);
       const hashes = [];
       transactions.transfers.forEach((tx) => {
@@ -140,18 +139,18 @@ const Transaction = () => {
               key={idx}
             >
               {/* {txn.from} */}
-              <div className="py-2 flex">
-                <div className="font-semibold w-[70px]">About</div> {txn.about}
+              <div className="py-2 flex overflow-scroll">
+                <div className="font-semibold w-[70px] mr-2">About</div> {txn.about}
               </div>
-              <div className="py-2 flex">
-                <div className="font-semibold w-[70px]">Creator</div>{" "}
+              <div className="py-2 flex overflow-scroll">
+                <div className="font-semibold w-[70px] mr-2">Creator</div>{" "}
                 {txn.creator}
               </div>
-              <div className="py-2 flex">
+              <div className="py-2 flex overflow-scroll">
                 <div className="font-semibold w-[70px]">Key</div> {txn.key}
               </div>
-              <div className="py-2 flex">
-                <div className="font-semibold w-[70px]">Value</div> {txn.val}
+              <div className="py-2 flex overflow-scroll">
+                <div className="font-semibold w-[70px] mr-2">Value</div> {txn.val}
                 <div className="ml-auto w-fit">
                   View transaction{" "}
                   <a
