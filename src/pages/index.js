@@ -15,10 +15,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main >
+      <main>
         <div className="flex flex-wrap justify-center items-start p-2 space-x-5">
           <Attest />
           <Search />
+        </div>
+        <div className="w-11/12 p-2 m-auto">
           <Transaction />
         </div>
       </main>

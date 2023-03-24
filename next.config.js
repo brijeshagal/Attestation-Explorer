@@ -2,11 +2,8 @@
 const nextConfig = {
   reactStrictMode: false,
   env: {
-    OPT_GOERLI: "57pee8u6CXKp56eTP8NRzLowgwPgQV5k",
-    OPT: "7X-EkXcOg_9U3r_Bu0X3K84ljkURDhL9",
-    POLYBASE_PRIVATE_KEY: '7a3ee8578f67ca3fbca481324789215a75c8f0fbcb6b221a59361bced60a1af3',
-    GRAPH:'85bc804894f38dac86bf09917a67f9e0',
-    DEPLOY_ID: 'QmRHdB4EBVMXeLBNzhRX6X2ikJpqWnhr5QtPwf5K5WgDnA'
+    OPT_GOERLI: "fweRgYhkoNx_M64mZwp3ImLRxVqGlKrE",
+    OPT: "LHPb5-NLrOUuDDz8ohvvcpV_Z0Iuf60M",
   },
 };
 

@@ -1,20 +1,12 @@
-import useAlchemy from "@/hooks/useAlchemy";
 import React, { useEffect, useState } from "react";
-import {
-  useContract,
-  useNetwork,
-  useProvider,
-  useSigner,
-  useSwitchNetwork,
-} from "wagmi";
-import abi from "../abi/ABI2.json";
+import { useContract, useSigner } from "wagmi";
+import abi from "../abi/ABI.json";
 import { ethers } from "ethers";
 import { BiLoaderAlt } from "react-icons/bi";
 
 const methodID = "0x702b9dee";
 
-const Attest = () => {
-  // const { alchemy } = useAlchemy();
+const Attest = () => {  
   const { data: signer, isError, isLoading } = useSigner();
   const [load, setLoad] = useState(false);
   const contract = useContract({
@@ -38,11 +30,11 @@ const Attest = () => {
       setLoad(false);
       return;
     }
-    try {
-      console.log("About: ", about);
+    try {      
       const bytes32hex = ethers.utils.formatBytes32String(key);
       console.log(bytes32hex);
       const val = ethers.utils.toUtf8Bytes(value);
+      console.log('Sending data to contract');
       const res = await contract.attest([
         { about: about, key: bytes32hex, val: ethers.utils.hexlify(val) },
       ]);

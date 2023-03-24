@@ -100,10 +100,9 @@ const Transaction = () => {
         //Okay: 0x5eb5ea10
         // 0x659b9ec1009f268952cdab9db9944545e69b2bf656f4ff296be8bb9aa20047dd
         // console.log(res.args.about);
-        // receipts.push();
         const bytes = ethers.utils.arrayify(res.args.val);
         const val = ethers.utils.toUtf8String(bytes);
-        console.log(res.args.key);
+        // console.log(res.args.key);
         let key;
         try {
           key = ethers.utils.parseBytes32String(res.args.key);
@@ -139,18 +138,6 @@ const Transaction = () => {
   }, [alchemy]);
   return (
     <div>
-      {/* <form className="flex  overflow-hidden rounded-lg bg-white m-3 px-5 py-1 justify-center items-center">
-        <div className="w-[100px]">All Filters</div>
-        <input
-          className="p-2 flex-1 focus:outline-none"
-          placeholder="Search an Attestation"
-        />
-        <div className="bg-blue-400 h-full ">
-        <button type="submit" onClick={handleSearch} className="h-full p-2">
-          <AiOutlineSearch className="m-auto text-lg" />
-        </button>
-        </div>
-      </form> */}
       <div className="p-2 flex flex-col space-y-4">
         <div className="mx-auto font-bold tracking-widest w-fit">
           Latest Attestations
@@ -174,15 +161,15 @@ const Transaction = () => {
               </div>
               <div className="py-2 flex">
                 <div className="font-semibold w-[70px]">Value</div> {txn.val}
-              </div>
-              <div className="ml-auto w-fit">
-                View transaction{" "}
-                <a
-                  href={`https://goerli-optimism.etherscan.io/tx/${txn.hash}`}
-                  className="underline underline-offset-2 text-blue-600"
-                >
-                  here
-                </a>
+                <div className="ml-auto w-fit">
+                  View transaction{" "}
+                  <a
+                    href={`https://goerli-optimism.etherscan.io/tx/${txn.hash}`}
+                    className="underline underline-offset-2 text-blue-600"
+                  >
+                    here
+                  </a>
+                </div>
               </div>
             </div>
           );

@@ -45,10 +45,10 @@ const Search = () => {
       Router.push({
         pathname: "/querying",
         query: {
-          key: bytes32hex ?? null,
-          about: about ?? null,
-          value: val ?? null,
-          creator: creator ?? null,
+          key: bytes32hex ?? '',
+          about: about ?? '',
+          value: val ?? '',
+          creator: creator ?? '',
         },
       });
       // const res = await contract.attestations([
