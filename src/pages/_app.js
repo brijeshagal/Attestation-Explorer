@@ -8,7 +8,7 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { AlchemyProvider } from "@/context/AlchemyProvider";
-
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from "@/components/Navbar";
 
 const { chains, provider } = configureChains(
@@ -36,6 +36,7 @@ export default function App({ Component, pageProps }) {
           <div className="min-h-screen bg-gray-200">
             <Navbar />
             <Component {...pageProps} />
+            <Analytics />
           </div>
         </ChainProvider>
       </AlchemyProvider>
