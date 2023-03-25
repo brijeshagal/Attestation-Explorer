@@ -11,7 +11,7 @@ import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/Navbar";
 
 // Scroll Alphatestnet Deployed DestinationAttestationStation at -> 0x9A631b00c5E7f134CFcec4d2b5acF90E35cBb9a4
-
+// Polygon Mumbai Testnet: 0xd43CfC3B6DB871d6960124bC653946C1765cCD18
 const scrollAlphaTestnet = {
   id: 534353,
   name: "Scroll Alpha Testnet",

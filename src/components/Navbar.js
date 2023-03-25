@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { AiOutlineDown } from "react-icons/ai";
 import Link from "next/link.js";
 import { Alchemy, Network } from "alchemy-sdk";
-import { useDisconnect, useNetwork, useSwitchNetwork } from "wagmi";
+import { useAccount, useDisconnect, useNetwork, useSwitchNetwork } from "wagmi";
 
 const Profile = dynamic(() => import("./Profile.jsx"), {
   ssr: false,
@@ -12,8 +12,8 @@ const Profile = dynamic(() => import("./Profile.jsx"), {
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { chains, chain, setChain, setSettings, setAlchemy } = useChain();
-
+  const { chains, chain, setChain, setAlchemy } = useChain();
+  const { isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { chain: currentChain } = useNetwork();
   const {
@@ -50,8 +50,8 @@ const Navbar = () => {
                     return (
                       <div
                         key={idx}
-                        onClick={async () => {                          
-                          network?.switchNetwork(net.chainId);
+                        onClick={async () => {
+                          if (isConnected) network?.switchNetwork(net.chainId);
                           setChain(net);
                           const alch = new Alchemy(net.setting);
                           setAlchemy(alch);
