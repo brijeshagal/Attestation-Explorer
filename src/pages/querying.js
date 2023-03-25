@@ -148,7 +148,7 @@ const querying = () => {
     <div className="mt-5">
       <form className="flex flex-wrap mx-auto bg-white rounded-lg w-11/12">
         <label className="p-2 my-2  flex justify-center items-center">
-          <span className="m-2 text-xl  overflow-hidden text-center">
+          <span className="m-2 text-xl  overflow-hidden scrollbar-hide text-center">
             Creator
           </span>
           <input
@@ -162,7 +162,7 @@ const querying = () => {
           />
         </label>
         <label className="p-2 my-2 flex justify-center items-center">
-          <span className="m-2 text-xl overflow-hidden">About</span>
+          <span className="m-2 text-xl overflow-hidden scrollbar-hide">About</span>
           <input
             className="p-2 focus:outline-gray-200"
             placeholder="Address"

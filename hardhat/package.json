@@ -3,8 +3,10 @@
   "dependencies": {
     "@connext/interfaces": "^2.0.3",
     "@connext/smart-contracts": "^1.2.0-alpha.0",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "@openzeppelin/contracts": "^4.8.2",
     "@openzeppelin/contracts-upgradeable": "^4.8.2",
+    "@openzeppelin/hardhat-upgrades": "^1.22.1",
     "dotenv": "^16.0.3"
   },
   "devDependencies": {

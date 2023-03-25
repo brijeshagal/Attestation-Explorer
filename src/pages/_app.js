@@ -6,26 +6,28 @@ import { optimism, optimismGoerli } from "wagmi/chains";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { Analytics } from "@vercel/analytics/react";
 import Navbar from "@/components/Navbar";
 
-const mantleChain = {
-  id: 5001,
-  name: "Mantle Testnet",
-  network: "mantle",
+// Scroll Alphatestnet Deployed DestinationAttestationStation at -> 0x9A631b00c5E7f134CFcec4d2b5acF90E35cBb9a4
+
+const scrollAlphaTestnet = {
+  id: 534353,
+  name: "Scroll Alpha Testnet",
+  network: "scroll",
   nativeCurrency: {
     decimals: 18,
-    name: "Mantle Testnet",
-    symbol: "BIT",
+    name: "SCroll Alpha Testnet",
+    symbol: "ETH",
   },
   rpcUrls: {
-    default: "https://rpc.testnet.mantle.xyz/",
+    default: "https://alpha-rpc.scroll.io/l2",
   },
   blockExplorers: {
     default: {
-      name: "Mantle Testnet",
-      url: "https://explorer.testnet.mantle.xyz/",
+      name: "Scroll Alpha Testnet Testnet",
+      url: "https://blockscout.scroll.io",
     },
   },
   testnet: true,
@@ -36,6 +38,13 @@ const { chains, provider } = configureChains(
   [
     alchemyProvider({ apiKey: process.env.OPT_GOERLI }),
     alchemyProvider({ apiKey: process.env.OPT }),
+    jsonRpcProvider({
+      rpc: (chain) => {
+        if (chain.id === scrollAlphaTestnet.id)
+          return { http: chain.rpcUrls.default };
+        return { http: "https://rpc-mumbai.maticvigil.com" };
+      },
+    }),
   ]
 );
 

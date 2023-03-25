@@ -51,7 +51,7 @@ const Navbar = () => {
                       <div
                         key={idx}
                         onClick={async () => {                          
-                          network.switchNetwork(net.chainId);
+                          network?.switchNetwork(net.chainId);
                           setChain(net);
                           const alch = new Alchemy(net.setting);
                           setAlchemy(alch);

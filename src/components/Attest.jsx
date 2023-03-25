@@ -52,7 +52,7 @@ const Attest = () => {
         <div className="text-2xl">Attest Now</div>
         <form className="flex flex-col w-full ">
           <label className="p-2 m-2 w-full flex justify-center items-center">
-            <span className="m-2 text-xl w-[60px] overflow-hidden">About</span>
+            <span className="m-2 text-xl w-[60px] overflow-hidden scrollbar-hide">About</span>
             <input
               className="p-2 focus:outline-gray-200"
               placeholder="Address"
@@ -82,7 +82,7 @@ const Attest = () => {
             />
           </label>
           <label className="p-2 m-2 w-full flex justify-center items-center">
-            <span className="m-2 text-xl w-[60px] overflow-hidden text-center">
+            <span className="m-2 text-xl w-[60px] overflow-hidden scrollbar-hide text-center">
               Value
             </span>
             <input

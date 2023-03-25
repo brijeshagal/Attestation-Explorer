@@ -68,7 +68,7 @@ const Search = () => {
         <div className="text-2xl">Search Attestation</div>
         <form className="flex flex-wrap w-full items-center ">
           <label className="p-2 m-2 flex justify-center items-center">
-            <span className="m-2 text-xl w-[75px] overflow-hidden text-center">
+            <span className="m-2 text-xl w-[75px] overflow-hidden scrollbar-hide text-center">
               Creator
             </span>
             <input
@@ -82,7 +82,7 @@ const Search = () => {
             />
           </label>
           <label className="p-2 m-2 flex justify-center items-center">
-            <span className="m-2 text-xl w-[60px] overflow-hidden">About</span>
+            <span className="m-2 text-xl w-[60px] overflow-hidden scrollbar-hide">About</span>
             <input
               className="p-2 focus:outline-gray-200"
               placeholder="Address"
