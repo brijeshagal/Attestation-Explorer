@@ -12,10 +12,8 @@ export function Profile() {
   const [showConnectors, setShowConnectors] = useState(false);
   const { address, isConnected } = useAccount();
   const { connect, connector, connectors, error, isLoading, pendingConnector } =
-  useConnect();
-  useEffect(() => {
-    if (connector?.name) setShowConnectors(false);
-  }, [connector]);
+    useConnect();
+
   if (isConnected) {
     return (
       <div>
@@ -41,7 +39,7 @@ export function Profile() {
         ))} */}
       </div>
     );
-  }  
+  }
   if (showConnectors) {
     return (
       <div className="fixed m-auto flex flex-col top-0 items-center justify-center space-y-3 left-0 right-0 bottom-0 h-[200px] bg-white rounded w-[400px] shadow-md shadow-black">
@@ -49,7 +47,10 @@ export function Profile() {
           <div
             disabled={!connector.ready}
             key={connector.id}
-            onClick={() => connect({ connector })}
+            onClick={() => {
+              connect({ connector });
+              setShowConnectors(false);
+            }}
             className="p-2 rounded border cursor-pointer text-black border-black w-11/12 hover:scale-[1.01] duration-75 transition-all"
           >
             {connector.name}

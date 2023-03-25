@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@connext/smart-contracts": "^1.2.0-alpha.0",
+    "@epnsproject/sdk-restapi": "^0.1.20",
     "@graphprotocol/client-cli": "^2.2.20",
     "@openzeppelin/contracts": "^4.8.2",
     "@openzeppelin/contracts-upgradeable": "^4.8.2",
