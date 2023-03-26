@@ -5,14 +5,14 @@ const ChainContext = createContext({});
 
 export const ChainProvider = ({ children }) => {
   const [settings, setSettings] = useState({
-    apiKey: process.env.OPT_GOERLI,
+    apiKey: process.env.NEXT_PUBLIC_OPT_GOERLI,
     network: Network.OPT_GOERLI,
   });
   const [alchemy, setAlchemy] = useState(new Alchemy(settings));
   const [chain, setChain] = useState({
     name: "Optimism Goerli",
     setting: {
-      apiKey: process.env.OPT_GOERLI,
+      apiKey: process.env.NEXT_PUBLIC_OPT_GOERLI,
       network: Network.OPT_GOERLI,
     },
     chainId: 420,
@@ -22,7 +22,7 @@ export const ChainProvider = ({ children }) => {
     {
       name: "Optimism Goerli",
       setting: {
-        apiKey: process.env.OPT_GOERLI,
+        apiKey: process.env.NEXT_PUBLIC_OPT_GOERLI,
         network: Network.OPT_GOERLI,
       },
       chainId: 420,
@@ -31,7 +31,7 @@ export const ChainProvider = ({ children }) => {
     {
       name: "Optimism Mainnet",
       setting: {
-        apiKey: process.env.OPT,
+        apiKey: process.env.NEXT_PUBLIC_OPT,
         network: Network.OPT_MAINNET,
       },
       chainId: 10,

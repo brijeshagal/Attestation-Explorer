@@ -36,8 +36,8 @@ const scrollAlphaTestnet = {
 const { chains, provider } = configureChains(
   [optimismGoerli, optimism],
   [
-    alchemyProvider({ apiKey: process.env.OPT_GOERLI }),
-    alchemyProvider({ apiKey: process.env.OPT }),
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_OPT_GOERLI }),
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_OPT }),
     jsonRpcProvider({
       rpc: (chain) => {
         if (chain.id === scrollAlphaTestnet.id)

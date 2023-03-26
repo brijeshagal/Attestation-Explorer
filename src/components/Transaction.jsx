@@ -139,18 +139,20 @@ const Transaction = () => {
               key={idx}
             >
               {/* {txn.from} */}
-              <div className="py-2 flex overflow-scroll">
-                <div className="font-semibold w-[70px] mr-2">About</div> {txn.about}
+              <div className="py-2 flex overflow-scroll scrollbar-hide">
+                <div className="font-semibold w-[70px] mr-2">About</div>{" "}
+                {txn.about}
               </div>
-              <div className="py-2 flex overflow-scroll">
+              <div className="py-2 flex overflow-scroll scrollbar-hide">
                 <div className="font-semibold w-[70px] mr-2">Creator</div>{" "}
                 {txn.creator}
               </div>
-              <div className="py-2 flex overflow-scroll">
+              <div className="py-2 flex overflow-scroll scrollbar-hide">
                 <div className="font-semibold w-[70px]">Key</div> {txn.key}
               </div>
-              <div className="py-2 flex overflow-scroll">
-                <div className="font-semibold w-[70px] mr-2">Value</div> {txn.val}
+              <div className="py-2 flex overflow-scroll scrollbar-hide">
+                <div className="font-semibold w-[70px] mr-2">Value</div>{" "}
+                {txn.val}
                 <div className="ml-auto w-fit">
                   View transaction{" "}
                   <a
