@@ -68,7 +68,7 @@ const Transaction = () => {
         order: "desc",
         category: ["external", "erc20", "erc721", "erc1155", "specialnft"],
       });
-      console.log(alchemy);
+      // console.log(alchemy);
       // console.log(transactions);
       const hashes = [];
       transactions.transfers.forEach((tx) => {
